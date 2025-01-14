@@ -23,7 +23,7 @@ public class GameManager : MonoBehaviour
                 activeTerminals++;
             }
         }
-        Debug.Log(activeTerminals);
+
         if (activeTerminals == terminals.Length)
         {
             LevelCompleted();

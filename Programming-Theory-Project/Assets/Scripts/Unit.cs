@@ -48,7 +48,7 @@ public class Unit : MonoBehaviour
 
     private void CameraMovement()
     {
-        Vector3 delayedPosition = Vector3.Slerp(gameCamera.transform.position, transform.position + _cameraOffset, _speedMultiplier);
+        Vector3 delayedPosition = Vector3.Lerp(gameCamera.transform.position, transform.position + _cameraOffset, _speedMultiplier);
         gameCamera.transform.position = delayedPosition;
     }
 

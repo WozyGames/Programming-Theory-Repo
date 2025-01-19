@@ -8,13 +8,7 @@ public class Terminal : MonoBehaviour
     [SerializeField, InspectorName("Object Y Offset")] private float _objectOffset;
     [SerializeField, InspectorName("Rotation Speed")] private float _rotationSpeed;
 
-    private GameManager gameManager;
     private GameObject pickableObject;
-
-    private void Start()
-    {
-        gameManager = GameObject.Find("GameManager").GetComponent<GameManager>();
-    }
 
     // Update is called once per frame
     void Update()
@@ -33,12 +27,13 @@ public class Terminal : MonoBehaviour
         {
             pickableObject = other.gameObject;
             ShowObjectAtTop();
-            gameManager.CheckActiveTerminals();
+            GameManager.instance.CheckActiveTerminals();
         }
     }
 
     private void ShowObjectAtTop()
     {
+        //Turns off object physics and attaches it to the terminal
         pickableObject.GetComponent<BoxCollider>().enabled = false;
         pickableObject.GetComponent<Rigidbody>().isKinematic = true;
         pickableObject.transform.SetParent(transform);

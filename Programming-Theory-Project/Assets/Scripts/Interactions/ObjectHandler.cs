@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
 
 public class ObjectHandler : MonoBehaviour
@@ -13,12 +12,6 @@ public class ObjectHandler : MonoBehaviour
     [SerializeField, InspectorName("Objects Search Radius")] private float _searchRadius;
 
     private GameObject pickableObject;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
 
     // Update is called once per frame
     void Update()
@@ -40,9 +33,10 @@ public class ObjectHandler : MonoBehaviour
 
     private GameObject FindNearestObject()
     {
-
+        //Search for objects around the player in a specific radius
         Collider[] pickableObjects = Physics.OverlapSphere(transform.position, _searchRadius, _objectLayer);
 
+        //Returns the first object it finds
         foreach (Collider pickableObject in pickableObjects)
         {
             return pickableObject.gameObject;
@@ -58,8 +52,10 @@ public class ObjectHandler : MonoBehaviour
 
         if (pickableObject != null)
         {
+            //Turns off the object's physics and attaches it to the player
             pickableObject.GetComponent<BoxCollider>().enabled = false;
             pickableObject.GetComponent<Rigidbody>().isKinematic = true;
+            //Set the object's new position and resets its rotation
             pickableObject.transform.SetParent(transform);
             Vector3 newPosition = new Vector3(0, _objectYOffset, _objectZOffset);
             pickableObject.transform.localPosition = newPosition;
@@ -70,7 +66,7 @@ public class ObjectHandler : MonoBehaviour
 
     private void DropObject()
     {
-
+        //Turns on the object's physics and detaches it from the player
         pickableObject.GetComponent<BoxCollider>().enabled = true;
         pickableObject.GetComponent<Rigidbody>().isKinematic = false;
         pickableObject.transform.SetParent(null);

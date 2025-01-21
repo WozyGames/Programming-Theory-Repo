@@ -10,13 +10,15 @@ public class Unit : MonoBehaviour
     [SerializeField, InspectorName("Speed Multiplier")] private float _speedMultiplier;
 
     private Camera gameCamera;
-    private NavMeshAgent agent;
+    private NavMeshAgent playerAgent;
+    private Animator playerAnimator;
 
     // Start is called before the first frame update
     void Start()
     {
         gameCamera = GameObject.FindObjectOfType<Camera>();
-        agent = GetComponent<NavMeshAgent>();
+        playerAgent = GetComponent<NavMeshAgent>();
+        playerAnimator = GetComponentInChildren<Animator>();
     }
 
     private void LateUpdate()
@@ -32,6 +34,7 @@ public class Unit : MonoBehaviour
         {
             MoveUnit();
         }
+        playerAnimator.SetFloat("Speed", Mathf.Ceil(Mathf.Abs(playerAgent.velocity.x + playerAgent.velocity.z)));
 
     }
 
@@ -42,7 +45,7 @@ public class Unit : MonoBehaviour
 
         if (Physics.Raycast(ray, out hit))
         {
-            agent.SetDestination(hit.point);
+            playerAgent.SetDestination(hit.point);
         }
     }
 

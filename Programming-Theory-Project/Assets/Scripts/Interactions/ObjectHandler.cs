@@ -12,6 +12,12 @@ public class ObjectHandler : MonoBehaviour
     [SerializeField, InspectorName("Objects Search Radius")] private float _searchRadius;
 
     private GameObject pickableObject;
+    private Animator playerAnimator;
+
+    private void Start()
+    {
+        playerAnimator = GetComponentInChildren<Animator>();
+    }
 
     // Update is called once per frame
     void Update()
@@ -52,6 +58,9 @@ public class ObjectHandler : MonoBehaviour
 
         if (pickableObject != null)
         {
+
+            playerAnimator.SetTrigger("Grab");
+
             //Turns off the object's physics and attaches it to the player
             pickableObject.GetComponent<BoxCollider>().enabled = false;
             pickableObject.GetComponent<Rigidbody>().isKinematic = true;
@@ -66,6 +75,8 @@ public class ObjectHandler : MonoBehaviour
 
     private void DropObject()
     {
+        playerAnimator.SetTrigger("Drop");
+
         //Turns on the object's physics and detaches it from the player
         pickableObject.GetComponent<BoxCollider>().enabled = true;
         pickableObject.GetComponent<Rigidbody>().isKinematic = false;

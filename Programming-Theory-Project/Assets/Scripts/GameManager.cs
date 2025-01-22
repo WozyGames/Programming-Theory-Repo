@@ -40,7 +40,7 @@ public class GameManager : MonoBehaviour
         //Gets the number of active terminals in the scene
         foreach (GameObject terminal in terminals)
         {
-            if (terminal.transform.childCount > 0)
+            if (terminal.transform.childCount > 3)
             {
                 activeTerminals++;
             }

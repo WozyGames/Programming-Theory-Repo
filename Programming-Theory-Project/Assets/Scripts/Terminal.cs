@@ -7,8 +7,10 @@ public class Terminal : MonoBehaviour
     [Header("Pickable Object Settings")]
     [SerializeField, InspectorName("Object Y Offset")] private float _objectOffset;
     [SerializeField, InspectorName("Rotation Speed")] private float _rotationSpeed;
+    [SerializeField, InspectorName("Object Tag")] private string _objectTag;
 
     private GameObject pickableObject;
+    private bool isHoldingObject = false;
 
     // Update is called once per frame
     void Update()
@@ -23,10 +25,11 @@ public class Terminal : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("Pickable"))
+        if (!isHoldingObject && other.tag == _objectTag)
         {
             pickableObject = other.gameObject;
             ShowObjectAtTop();
+            isHoldingObject = true;
             GameManager.instance.CheckActiveTerminals();
         }
     }

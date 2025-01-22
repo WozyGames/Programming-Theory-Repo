@@ -4,9 +4,12 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Pickable
   - Terminal
   - Enemy
+  - YellowObject
+  - RedObject
+  - BlueObject
+  - GreenObject
   layers:
   - Default
   - TransparentFX

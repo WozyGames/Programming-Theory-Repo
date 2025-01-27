@@ -34,7 +34,7 @@ public class Unit : MonoBehaviour
         {
             MoveUnit();
         }
-        playerAnimator.SetFloat("Speed", Mathf.Ceil(Mathf.Abs(playerAgent.velocity.x + playerAgent.velocity.z)));
+        playerAnimator.SetFloat("Speed", playerAgent.velocity.sqrMagnitude);
 
     }
 

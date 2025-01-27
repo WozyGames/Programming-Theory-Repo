@@ -5,10 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Scene Loader Settings")]
+    [SerializeField, InspectorName("Time Between Scenes")] private float timeBetweenScenes;
 
     public static GameManager instance;
 
     private GameObject[] terminals;
+    [HideInInspector] public bool isGameOver = false;
 
     // Start is called before the first frame update
     void Start()
@@ -55,12 +58,20 @@ public class GameManager : MonoBehaviour
     public void LevelCompleted()
     {
         Debug.Log("Level Completed");
+        isGameOver = false;
     }
 
     public void GameOver()
     {
-        Scene scene = SceneManager.GetActiveScene();
-        SceneManager.LoadScene(scene.name);
+        isGameOver = true;
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+    }
+
+    IEnumerator LoadScene(string name)
+    {
+        yield return new WaitForSeconds(timeBetweenScenes);
+        SceneManager.LoadScene(name);
+        isGameOver = false;
     }
 
 }

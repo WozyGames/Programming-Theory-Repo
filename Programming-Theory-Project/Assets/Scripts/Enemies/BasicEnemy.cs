@@ -5,6 +5,9 @@ using UnityEngine.AI;
 
 public class BasicEnemy : EnemyAI
 {
+
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -12,6 +15,7 @@ public class BasicEnemy : EnemyAI
         currentPoint = 0;
         timeLastMovement = 0;
         agent = GetComponent<NavMeshAgent>();
+        enemyAnimator = GetComponentInChildren<Animator>();
 
     }
 

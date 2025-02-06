@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        CountTerminals();
 
         if (instance == null)
         {
@@ -28,7 +29,6 @@ public class GameManager : MonoBehaviour
         }
         DontDestroyOnLoad(gameObject);
 
-        CountTerminals();
     }
 
     private void CountTerminals()
@@ -38,12 +38,13 @@ public class GameManager : MonoBehaviour
 
     public void CheckActiveTerminals()
     {
+        CountTerminals();
         int activeTerminals = 0;
 
         //Gets the number of active terminals in the scene
         foreach (GameObject terminal in terminals)
         {
-            if (terminal.transform.childCount > 3)
+            if (terminal.transform.childCount > 3 && terminal != null)
             {
                 activeTerminals++;
             }

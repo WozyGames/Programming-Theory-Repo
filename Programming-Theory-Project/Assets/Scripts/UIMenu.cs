@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using UnityEditor;
 #endif
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class UIMenu : MonoBehaviour
 {
@@ -15,7 +16,12 @@ public class UIMenu : MonoBehaviour
 
     public void LoadLevelSelector()
     {
-        Debug.Log("Level Selector Pressed");
+        SceneManager.LoadScene("LevelSelector");
+    }
+
+    public void LoadLevel(string level)
+    {     
+        SceneManager.LoadScene(level);
     }
 
     public void ExitGame()

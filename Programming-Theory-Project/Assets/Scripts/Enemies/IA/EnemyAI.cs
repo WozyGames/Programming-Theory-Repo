@@ -113,8 +113,9 @@ public class EnemyAI : MonoBehaviour
         {
             enemyAnimator.SetTrigger("Catch");
             Unit playerScript = playerCollider[0].GetComponent<Unit>();
+            playerCollider[0].GetComponent<NavMeshAgent>().speed = 0;
             playerScript.enabled = false;
-            GameManager.instance.GameOver();
+            GameManager.instance.GameOver();            
         }
     }
 

@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Scene Loader Settings")]
     [SerializeField, InspectorName("Time Between Scenes")] private float timeBetweenScenes;
 
-    public static GameManager instance;
+    public static GameManager instance;    
 
     private GameObject[] terminals;
     [HideInInspector] public bool isGameOver = false;
@@ -58,20 +58,27 @@ public class GameManager : MonoBehaviour
 
     public void LevelCompleted()
     {
-        Debug.Log("Level Completed");
-        isGameOver = false;
+        if (SceneManager.sceneCountInBuildSettings != SceneManager.GetActiveScene().buildIndex + 1)
+        {
+            StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
+        }
+        else
+        {
+            Debug.Log("Fin de los niveles");
+        }
     }
 
     public void GameOver()
     {
         isGameOver = true;
-        StartCoroutine(LoadScene(SceneManager.GetActiveScene().name));
+        StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
     }
 
-    IEnumerator LoadScene(string name)
+    IEnumerator LoadScene(int index)
     {
+        Time.timeScale = 0;
         yield return new WaitForSeconds(timeBetweenScenes);
-        SceneManager.LoadScene(name);
+        SceneManager.LoadScene(index);
         isGameOver = false;
     }
 

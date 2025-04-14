@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class UIPauseMenu : UIMenu
 {
-    [SerializeField] private GameObject _menu;
+    [SerializeField, InspectorName("Pause Menu")] private GameObject _menu;
 
     private bool menuState;
 

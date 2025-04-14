@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     [Header("Scene Loader Settings")]
     [SerializeField, InspectorName("Time Between Scenes")] private float timeBetweenScenes;
 
-    public static GameManager instance;    
+    public static GameManager instance;
 
     private GameObject[] terminals;
     [HideInInspector] public bool isGameOver = false;
@@ -17,7 +17,6 @@ public class GameManager : MonoBehaviour
     void Start()
     {
         CountTerminals();
-
         if (instance == null)
         {
             instance = this;
@@ -71,14 +70,27 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         isGameOver = true;
-        StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex));
+        StartCoroutine(ReLoadScene());
+    }
+
+    public void SaveProgress()
+    {
+        PlayerPrefs.SetInt("lastPlayedLevel", SceneManager.GetActiveScene().buildIndex);
+        PlayerPrefs.SetString("lastPlayedLevelMusic", SceneManager.GetActiveScene().name);
     }
 
     IEnumerator LoadScene(int index)
     {
-        Time.timeScale = 0;
         yield return new WaitForSeconds(timeBetweenScenes);
         SceneManager.LoadScene(index);
+        isGameOver = false;
+        AudioManager.instance.PlayLevelMusic(SceneManager.GetSceneByBuildIndex(index).name);
+    }
+
+    IEnumerator ReLoadScene()
+    {
+        yield return new WaitForSeconds(timeBetweenScenes);
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
         isGameOver = false;
     }
 

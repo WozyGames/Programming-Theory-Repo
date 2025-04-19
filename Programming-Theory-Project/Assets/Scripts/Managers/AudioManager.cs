@@ -48,6 +48,13 @@ public class AudioManager : MonoBehaviour
         s.audioSource.Play();
     }
 
+    public void PlaySFX(string name)
+    {
+        Sound s = Array.Find(sounds, sound => sound.name == name);
+        if (s == null) return;
+        s.audioSource.Play();
+    }
+
     private void StopAllClips()
     {
         foreach (Sound s in sounds)

@@ -57,6 +57,7 @@ public class GameManager : MonoBehaviour
 
     public void LevelCompleted()
     {
+        AudioManager.instance.PlaySFX("victory");
         if (SceneManager.sceneCountInBuildSettings != SceneManager.GetActiveScene().buildIndex + 1)
         {
             StartCoroutine(LoadScene(SceneManager.GetActiveScene().buildIndex + 1));
@@ -75,8 +76,11 @@ public class GameManager : MonoBehaviour
 
     public void SaveProgress()
     {
-        PlayerPrefs.SetInt("lastPlayedLevel", SceneManager.GetActiveScene().buildIndex);
-        PlayerPrefs.SetString("lastPlayedLevelMusic", SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().buildIndex != 8)
+        {
+            PlayerPrefs.SetInt("lastPlayedLevel", SceneManager.GetActiveScene().buildIndex);
+            PlayerPrefs.SetString("lastPlayedLevelMusic", SceneManager.GetActiveScene().name);
+        }
     }
 
     IEnumerator LoadScene(int index)

@@ -27,6 +27,7 @@ public class Terminal : MonoBehaviour
     {
         if (!isHoldingObject && other.tag == _objectTag)
         {
+            AudioManager.instance.PlaySFX("put");
             pickableObject = other.gameObject;
             ShowObjectAtTop();
             isHoldingObject = true;

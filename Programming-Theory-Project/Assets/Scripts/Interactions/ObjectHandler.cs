@@ -60,6 +60,7 @@ public class ObjectHandler : MonoBehaviour
         {
 
             playerAnimator.SetTrigger("Grab");
+            AudioManager.instance.PlaySFX("pick");
 
             //Turns off the object's physics and attaches it to the player
             pickableObject.GetComponent<BoxCollider>().enabled = false;

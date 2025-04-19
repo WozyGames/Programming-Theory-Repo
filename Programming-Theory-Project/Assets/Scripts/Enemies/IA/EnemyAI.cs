@@ -112,10 +112,11 @@ public class EnemyAI : MonoBehaviour
         if (playerCollider.Length > 0)
         {
             enemyAnimator.SetTrigger("Catch");
+            AudioManager.instance.PlaySFX("lose");
             Unit playerScript = playerCollider[0].GetComponent<Unit>();
             playerCollider[0].GetComponent<NavMeshAgent>().speed = 0;
             playerScript.enabled = false;
-            GameManager.instance.GameOver();            
+            GameManager.instance.GameOver();
         }
     }
 
